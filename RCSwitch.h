@@ -42,15 +42,19 @@ class RCSwitch {
     
     void switchOn(int nGroupNumber, int nSwitchNumber);
     void switchOff(int nGroupNumber, int nSwitchNumber);
-    void switchOn(String sGroup, int nSwitchNumber);
-    void switchOff(String sGroup, int nSwitchNumber);
+    void switchOn(char* sGroup, int nSwitchNumber);
+    void switchOff(char* sGroup, int nSwitchNumber);
     void switchOn(char sFamily, int nGroup, int nDevice);
     void switchOff(char sFamily, int nGroup, int nDevice);
     
 
-    void sendTriState(String Code);
+    void sendTriState(char* Code);
     void send(unsigned long Code, unsigned int length);
     void send(char* Code);
+
+    void sendQ(unsigned long Code, unsigned int length);
+    void sendQ(char* Code);
+
     
     void enableReceive(int interrupt, RCSwitchCallback callback);
     void disableReceive();
@@ -61,16 +65,20 @@ class RCSwitch {
     void setRepeatTransmit(int RepeatTransmit);
   
   private:
-    String getCodeWordB(int nGroupNumber, int nSwitchNumber, boolean bStatus);
-    String getCodeWordA(String sGroup, int nSwitchNumber, boolean bStatus);
-    String getCodeWordC(char sFamily, int nGroup, int nDevice, boolean bStatus);
+    char* getCodeWordB(int nGroupNumber, int nSwitchNumber, boolean bStatus);
+    char* getCodeWordA(char* sGroup, int nSwitchNumber, boolean bStatus);
+    char* getCodeWordC(char sFamily, int nGroup, int nDevice, boolean bStatus);
     void sendT0();
     void sendT1();
     void sendTF();
     void send0();
     void send1();
     void sendSync();
-    void transmit(int nHighPulses, int nLowPulses);
+    void send0Q();
+    void send1Q();
+    void sendSyncQ();    
+    void transmitHL(int nHighPulses, int nLowPulses);
+    void transmitLH(int nLowPulses, int nHighPulses);
 
     static char* dec2binWzerofill(unsigned long dec, unsigned int length);
     
